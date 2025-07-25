@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Касса Самообслуживания</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9fbfd;
+        }
+        .button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+        input[type="file"] {
+            display: none; /* Скрываем стандартную кнопку выбора файла */
+        }
+        .file-upload-label {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .file-upload-label:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        #fileNameDisplay, #pageCountDisplay, #costDisplay, #statusMessage {
+            font-size: 1.1em;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            text-align: left;
+        }
+        #statusMessage {
+            color: #d62c1a; /* Красный для ошибок, можно менять */
+            font-weight: bold;
+            background-color: #fdeaea;
+            border: 1px solid #f0b5b5;
+        }
+        /* Стили для выбора типа печати */
+        .print-type-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .print-type-selection label {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            color: #555;
+        }
+        .print-type-selection input[type="radio"] {
+            display: none;
+        }
+        .print-type-selection input[type="radio"]:checked + label {
+            background-color: #4CAF50; /* Зеленый при выборе */
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .print-type-selection input[type="radio"]:disabled + label {
+            background-color: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Касса Самообслуживания</h1>
+
+        <div class="section">
+            <h2>1. Выберите файл для печати</h2>
+            <input type="file" id="fileInput" accept=".pdf,.doc,.docx">
+            <label for="fileInput" class="file-upload-label">
+                <span id="uploadButtonText">Загрузить файл с флешки</span>
+            </label>
+            <div id="fileNameDisplay">Файл не выбран.</div>
+        </div>
+
+        <div class="section">
+            <h2>2. Выберите тип печати</h2>
+            <div class="print-type-selection">
+                <input type="radio" id="printTypeBW" name="printType" value="bw" checked>
+                <label for="printTypeBW">Черно-белая</label>
+
+                <input type="radio" id="printTypeColor" name="printType" value="color">
+                <label for="printTypeColor">Цветная</label>
+            </div>
+            <div id="pageCountDisplay">Количество страниц: 0</div>
+            <div id="costDisplay">Стоимость: 0.00 GEL</div>
+            <div id="statusMessage" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Оплата и печать</h2>
+            <button id="payButton" class="button" disabled>Оплатить и напечатать</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
